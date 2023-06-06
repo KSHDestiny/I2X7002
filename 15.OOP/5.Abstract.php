@@ -9,9 +9,7 @@
 
         // methods
 
-        // (abstract public function functionName(){
-                // statement;
-        // })
+        // (abstract public function functionName();
     // }
 
     // class AnotherClass extends AbstractClass{
