@@ -30,12 +30,15 @@
             $this->string = str_shuffle($this->string);
             return $this;
         }
+
+        public function get(){
+            return $this->string;
+        }
     }
 
     $mystring = new ChangeType("U_Ba_Htoo");
-    echo $mystring->string;     // U_Ba_Htoo
-    $mystring->replaceString("_"," ")->lowerString()->shuffleString();
-    echo $mystring->string;
+    $data = $mystring->replaceString("_"," ")->upperWord()->get();
+    echo $data;
 
     // $mystring->replaceString("_"," ")                                == $mystring
     // $mystring->replaceString("_"," ")->lowerString()                 == $mystring            // $mystring->lowerString()

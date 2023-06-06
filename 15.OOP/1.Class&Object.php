@@ -6,7 +6,7 @@
         // methods (functions)
     // }
 
-    class Person{       // create class
+    class People{       // create class
         // properties
         public $name;
         public $age;
@@ -26,7 +26,7 @@
         }
     }
 
-    $kyawkyaw = new Person;   // create object (new)
+    $kyawkyaw = new People;   // create object (new)
     // $kyawkyaw->myAgeSetter(25);
     var_dump($kyawkyaw->age); // NULL
     $kyawkyaw->myName("Kyaw Kyaw");   // My name is Kyaw Kyaw
@@ -37,7 +37,7 @@
     $kyawkyaw->myAgeGetter(); // I am 26 years old.
     echo "<hr>";
 
-    $hlahla = new Person;
+    $hlahla = new People;
     $hlahla->myName("Hla Hla"); // My name is Hla Hla.
     echo $hlahla->name; // Hla Hla
 
