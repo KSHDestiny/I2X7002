@@ -36,7 +36,7 @@
         </div>
         <div>
             <label for="password">Password</label>
-            <input type="text" id="password" name="userPassword">
+            <input type="password" id="password" name="userPassword">
         </div>
         <input type="submit" value="Send">
     </form>
