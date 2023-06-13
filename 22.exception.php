@@ -11,8 +11,8 @@
     try{
         // echo "Hello Mello";
         throw new Exception("<b style='color: red'>Warning</b>: include_once(./template/gg.php): Failed to open stream: No such file or directory in ", 2001);
-    }catch(Exception $e){
-        echo "Error Code : " . $e->getCode() . $e->getMessage() . "<b style='color: red'>" . $e->getFile() . "</b>". " on line " . $e->getLine();
+    }catch(Exception $exc){
+        echo "Error Code : " . $exc->getCode() . $exc->getMessage() . "<b style='color: red'>" . $exc->getFile() . "</b>". " on line " . $exc->getLine();
         // echo $e->getCode();
         // echo $e->getLine();
         // echo $e->getFile();
