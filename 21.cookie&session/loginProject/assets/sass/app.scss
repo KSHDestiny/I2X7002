@@ -1,0 +1,34 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@400;700&display=swap");
+
+$primary: #fdd683;
+$secondary: #5c7c89;
+
+$btn-border-radius: 10px;
+
+$headings-font-family: "Playfair Display", serif;
+$font-family-base: "Poppins", sans-serif;
+$navbar-light-icon-color: $primary;
+$navbar-toggler-border-color: $secondary;
+
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: $spacer * 0.25,
+  2: $spacer * 0.5,
+  3: $spacer,
+  4: $spacer * 1.5,
+  5: $spacer * 3,
+  6: $spacer * 4,
+  7: $spacer * 5,
+  8: $spacer * 7,
+  9: $spacer * 9,
+);
+
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+
+// custom css
+.bg-custom {
+  background: url("../img/background.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+}

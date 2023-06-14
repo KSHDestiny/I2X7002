@@ -1,5 +1,6 @@
 <?php 
-    setcookie("name","");
+    unset($_COOKIE["name"]);
+    setcookie("name","", time() - 3600);
     // delete in cookie     // need to reload or redirect
 ?>
 

@@ -1,6 +1,6 @@
 <?php   
     // setcookie(key,value,expiretime)
-    setcookie('name',"Destiny",time() + 5);
+    setcookie('name',"Destiny");
 ?>
 
 <!DOCTYPE html>
