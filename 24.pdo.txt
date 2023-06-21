@@ -1,0 +1,38 @@
+// database connect
+// $conn = new PDO("mysql:host=$servername;dbname=myDB", $username, $password);
+
+$conn = new PDO("mysql:host='localhost';dbname='my_test'","root","");
+
+
+// Create
+$statement = $conn->query(createSQL);
+$statement->execute();
+
+$statement = $conn->query("INSERT INTO table_name (col1,ol2,...) VALUES (val1,val2,...)");
+$statement->execute();
+
+
+// Read
+$statement = $conn->query(readSQL);
+$rows = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+$statement = $conn->query("SELECT * FROM table_name");
+$rows = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+
+// Update
+$statement = $conn->query(updateSQL);
+$statement->execute();
+
+// Delete
+$statement = $conn->query(deleteSQL);
+$statement->execute();
+
+
+// protect sql injection (prepare)
+
+$statement = $conn->prepare(createSQL)  // value -> :placeholder
+$statement->execute([
+    ":placeholder" => value,
+    ":placeholder" => value
+]);
