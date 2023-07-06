@@ -9,7 +9,7 @@
 
 ?>
 
-    <?php require_once('./template/header.php') ?>
+<?php require_once('./template/header.php') ?>    
 
         <div class="vh-100">
             <div class="row justify-content-center align-items-center h-100">

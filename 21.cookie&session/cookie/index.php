@@ -10,6 +10,6 @@
     <h3>Cookie value is <?php echo $_COOKIE["job"] ?></h3>
 
     <a href="./setcookie.php">Set Cookie</a>
-    <a href="./deletecookie.php">Delete Cookie</a>
+    <a href="./deletecookie.php">Delete Cookie</a> <br>
 </body>
 </html>
