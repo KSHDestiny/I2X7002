@@ -1,7 +1,9 @@
 <?php 
 session_start();
+require_once "./template/utilities.php";
 require_once "./template/header.php";
-require_once "./template/notLogin.php";
+
+notLogin();
 ?>
 
     <section>
@@ -30,6 +32,11 @@ require_once "./template/notLogin.php";
 
     <section class="min-vh-100 container-fluid container-md pt-7">
         <div class="pt-9 pt-md-6 mx-3">
+        <p class="text-success text-center">
+            <?php
+                flash("success")
+            ?>
+        </p>
             <h3 class="text-secondary display-6">To do Lists</h3>
             <table class="table table-striped">
                 <thead>

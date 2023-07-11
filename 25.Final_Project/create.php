@@ -1,6 +1,45 @@
 <?php
+session_start();
 require_once "./template/header.php";
-require_once "./template/notLogin.php";
+require_once "./template/utilities.php";
+
+notLogin();
+
+$conn = database("localhost","to_do_list","root","");
+
+?>
+
+<?php
+    if(isset($_POST['createBtn'])){
+        $status = true;
+
+        if(empty($_POST['title']) || $_POST['title'] == ""){
+            setcookie("emptyTitle", "You need to fill list title.");
+            $status = false;
+        }
+
+        if(empty($_POST['deadline']) || $_POST['deadline'] == ""){
+            setcookie("emptyDeadline", "You need to fill list deadline.");
+            $status = false;
+        }
+
+        if($status){
+            $userId = userId();
+
+            $sql = "INSERT INTO to_do_list (user_id,title,deadline) VALUES (:userId,:title,:deadline)";
+            $stmt = $conn->prepare($sql);
+            $stmt->execute([
+                ":userId" => $userId,
+                ":title" => $_POST['title'],
+                ":deadline" => $_POST['deadline']
+            ]);
+
+            setcookie("success","You have successfully created a list!");
+            header("Location: ./dashboard.php");
+        }else{
+            header("Location: ./create.php");
+        }
+    }
 ?>
     <section>
         <nav class="navbar navbar-expand-lg bg-transparent fixed-top">
@@ -33,18 +72,22 @@ require_once "./template/notLogin.php";
                     Create List
                 </div>
                 <div class="card-body">
-                    <form action="">
+                    <form action="./create.php" method="POST">
                         <div class="form-group">
                             <label for="title" class="form-label">Title</label>
-                            <input type="text" class="form-control" id="title" placeholder="Enter your list...">
+                            <input type="text" name="title" class="form-control" id="title" placeholder="Enter your list...">
+                            <p class="text-danger">
+                                <?php flash("emptyTitle") ?>
+                            </p>
                         </div>
                         <div class="form-group mt-3">
                             <label for="deadline" class="form-label">Deadline</label>
-                            <input type="date" class="form-control" id="deadline" placeholder="Enter list deadline...">
+                            <input type="date" name="deadline" class="form-control" id="deadline" placeholder="Enter list deadline...">
+                            <p class="text-danger">
+                            <?php flash("emptyDeadline") ?>
+                            </p>
                         </div>
-                        <button type="submit" class="btn btn-primary mt-3 w-100">
-                            Create
-                        </button>
+                        <input type="submit" name="createBtn" class="btn btn-primary mt-3 w-100" value="Create" />
                     </form>
                 </div>
             </div>

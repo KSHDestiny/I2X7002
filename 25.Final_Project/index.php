@@ -1,6 +1,8 @@
 <?php 
 require_once("./template/header.php");
-require_once("./template/login.php");
+require_once("./template/utilities.php");
+
+login();
 ?>
     
 <section>
@@ -28,16 +30,11 @@ require_once("./template/login.php");
                         <div class="form-group">
                             <label for="" class="form-label">Email</label>
                             <input type="text" name="userEmail" class="form-control" value="<?php 
-                                if(isset($_COOKIE['oldEmail'])){
-                                    echo htmlentities( $_COOKIE['oldEmail']);
-                                }
+                                oldData("oldEmail");
                             ?>" placeholder="Enter your Email...">
                             <p class="text-danger">
                             <?php
-                                if(isset($_COOKIE['emptyEmail'])){
-                                    echo $_COOKIE['emptyEmail'];
-                                    setcookie('emptyEmail',"",time() - 3600);
-                                }
+                                flash("emptyEmail");
                             ?>
                             </p>
                         </div>
@@ -46,15 +43,9 @@ require_once("./template/login.php");
                             <input type="password" name="userPassword" value="" class="form-control" placeholder="Enter your Password...">
                             <p class="text-danger">
                             <?php
-                                if(isset($_COOKIE['emptyPassword'])){
-                                    echo $_COOKIE['emptyPassword'];
-                                    setcookie('emptyPassword',"",time() - 3600);
-                                }
+                                flash("emptyPassword");
 
-                                if(isset($_COOKIE['wrongPassword'])){
-                                    echo $_COOKIE['wrongPassword'];
-                                    setcookie('wrongPassword',"",time() - 3600);
-                                }
+                                flash("wrongPassword");
                             ?>
                             </p>
                         </div>
@@ -66,3 +57,4 @@ require_once("./template/login.php");
     </section>
 
 <?php require_once("./template/footer.php") ?>
+

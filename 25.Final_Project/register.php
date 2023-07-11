@@ -1,8 +1,10 @@
 <?php 
 session_start();
 require_once("./template/header.php");
-require_once("./template/db.php");
-require_once("./template/login.php");
+require_once("./template/utilities.php");
+
+$conn = database("localhost","to_do_list","root","");
+login();
 ?>
 
 
@@ -135,37 +137,24 @@ require_once("./template/login.php");
                         <div class="form-group">
                             <label for="name" class="form-label">Name</label>
                             <input type="text" id="name" name="userName" class="form-control" value="<?php
-                                if(isset($_COOKIE['oldRegisterName'])){
-                                    echo htmlentities($_COOKIE['oldRegisterName']);
-                                }
+                                oldData("oldRegisterName")
                             ?>" placeholder="Enter your Name...">
                             <p class="text-danger">
                                 <?php
-                                    if(isset($_COOKIE['emptyName'])){
-                                        echo $_COOKIE['emptyName'];
-                                        setcookie('emptyName',"",time() - 3600);
-                                    }
+                                    flash("emptyName");
                                 ?>
                             </p>
                         </div>
                         <div class="form-group mt-3">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" id="email" name="userEmail" class="form-control" value="<?php
-                                if(isset($_COOKIE['oldRegisterEmail'])){
-                                    echo htmlentities($_COOKIE['oldRegisterEmail']);
-                                }
+                                oldData("oldRegisterEmail");
                             ?>" placeholder="Enter your Email...">
                             <p class="text-danger">
                                 <?php
-                                    if(isset($_COOKIE['emptyEmail'])){
-                                        echo $_COOKIE['emptyEmail'];
-                                        setcookie('emptyEmail',"",time() - 3600);
-                                    }
+                                    flash("emptyEmail");
 
-                                    if(isset($_COOKIE['sameEmail'])){
-                                        echo $_COOKIE['sameEmail'];
-                                        setcookie('sameEmail',"",time() - 3600);
-                                    }
+                                    flash("sameEmail");
                                 ?>
                             </p>
                         </div>
@@ -189,10 +178,7 @@ require_once("./template/login.php");
                             <input type="password" id="confirmPassword" name="confirmPassword" value="" class="form-control" placeholder="Confirm Password...">
                             <p class="text-danger">
                                 <?php
-                                    if(isset($_COOKIE['notMatchPassword'])){
-                                        echo $_COOKIE['notMatchPassword'];
-                                        setcookie('notMatchPassword',"",time() - 3600);
-                                    }
+                                    flash("notMatchPassword");
                                 ?>
                             </p>
                         </div>

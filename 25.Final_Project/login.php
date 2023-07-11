@@ -1,5 +1,8 @@
 <?php
-    require_once("./template/db.php");
+    require_once("./template/utilities.php");
+    session_start();
+
+    $conn = database("localhost","to_do_list","root","");
 ?>
 
 <?php
@@ -19,6 +22,7 @@
         }
 
         if($status){
+            
             $sql = "SELECT password FROM users WHERE email = :email";
             $statement = $conn->prepare($sql);
             $statement->execute([
@@ -28,12 +32,11 @@
             $row = $statement->fetch(PDO::FETCH_ASSOC);
 
             if(password_verify($_POST['userPassword'], $row['password'])){
-
                 // delete old email
                 // setcookie("oldEmail","", time() - 3600);
 
                  // store session for login
-                $_SESSION['token'] = rand(0000000,9999999) . "_" . $_POST['userName'] . rand(0000000,9999999);
+                $_SESSION['token'] = rand(0000000,9999999) . "_" . $_POST['userEmail'] . rand(0000000,9999999);
 
                 // store cookie for login
                 setcookie('token',$_SESSION['token'], time() + (3600 * 24));
