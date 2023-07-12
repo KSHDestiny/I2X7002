@@ -98,8 +98,8 @@ login();
             ]));
             $user = $statement->fetch(PDO::FETCH_ASSOC);
 
-            // store user id in session
-            $_SESSION['userId'] = rand(0000000,9999999). $user['id'] . rand(0000000000,9999999999);
+            // store user id in cookie
+            setcookie('userId',rand(0000000,9999999). $user['id'] . rand(0000000000,9999999999), time() + (3600 * 24));
 
             header("Location: ./dashboard.php");
         }else{

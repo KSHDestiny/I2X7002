@@ -29,9 +29,9 @@
 
       // userId
     function userId(){
-        if(isset($_SESSION['userId'])){
-            $length = strlen($_SESSION['userId']) - 17;
-            $userId = substr($_SESSION['userId'],7,$length);
+        if(isset($_COOKIE['userId'])){
+            $length = strlen($_COOKIE['userId']) - 17;
+            $userId = substr($_COOKIE['userId'],7,$length);
             return $userId;
         }
     }
@@ -49,4 +49,11 @@
             echo htmlentities($_COOKIE[$data]);
         }
     }
+
+    function block($userId, $currentUserId){
+        if($userId != $currentUserId){
+            header("Location: ./404.php");
+        }
+    }
+
 ?>

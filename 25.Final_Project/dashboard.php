@@ -6,6 +6,18 @@ require_once "./template/header.php";
 notLogin();
 ?>
 
+<?php
+    $conn = database("localhost","to_do_list","root","");
+    $userId = userId();
+
+    $sql = "SELECT * FROM to_do_list WHERE user_id = :userId";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([
+        ":userId" => $userId
+    ]);
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
+
     <section>
             <nav class="navbar navbar-expand-lg bg-transparent fixed-top">
                 <div class="container-sm-fluid container-md">
@@ -48,57 +60,30 @@ notLogin();
                     </tr>
                 </thead>
                 <tbody id="tbody">
-                    <tr class='row'>
-                        <td class='text-secondary col-4'>Cooking</td>
-                        <td class='text-secondary col-4'>12.2.2023</td>
-                        <td class='ps-4 col-2'>
-                            <form action=''>
-                                <input type='checkbox' name='' class='form-check' $checked >
-                            </form>
-                        </td>
-                        <td class='text-secondary col-2 d-flex'>
-                            <a href=''>
-                                <i class='bi bi-pencil-square me-3'></i>
-                            </a>
-                            <a href=''>
-                                <i class='bi bi-trash'></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr class='row text-decoration-line-through'>
-                        <td class='text-secondary col-4'>Cooking</td>
-                        <td class='text-secondary col-4'>12.2.2023</td>
-                        <td class='ps-4 col-2'>
-                            <form action=''>
-                                <input type='checkbox' name='' class='form-check' $checked >
-                            </form>
-                        </td>
-                        <td class='text-secondary col-2 d-flex'>
-                            <a href=''>
-                                <i class='bi bi-pencil-square me-3'></i>
-                            </a>
-                            <a href=''>
-                                <i class='bi bi-trash'></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr class='row'>
-                        <td class='text-secondary col-4'>Cooking</td>
-                        <td class='text-secondary col-4'>12.2.2023</td>
-                        <td class='ps-4 col-2'>
-                            <form action=''>
-                                <input type='checkbox' name='' class='form-check' $checked >
-                            </form>
-                        </td>
-                        <td class='text-secondary col-2 d-flex'>
-                            <a href=''>
-                                <i class='bi bi-pencil-square me-3'></i>
-                            </a>
-                            <a href=''>
-                                <i class='bi bi-trash'></i>
-                            </a>
-                        </td>
-                    </tr>
+                    <?php
+                        foreach($rows as $row){
+                            $deadline = date("M-d-o",strtotime($row['deadline']));
+                            echo "
+                            <tr class='row'>
+                                <td class='text-secondary col-4'>{$row['title']}</td>
+                                <td class='text-secondary col-4'>$deadline</td>
+                                <td class='ps-4 col-2'>
+                                    <form action=''>
+                                        <input type='checkbox' name='' class='form-check'>
+                                    </form>
+                                </td>
+                                <td class='text-secondary col-2 d-flex'>
+                                    <a href='edit.php?id={$row['id']}'>
+                                        <i class='bi bi-pencil-square me-3'></i>
+                                    </a>
+                                    <a href='delete.php?id={$row['id']}'>
+                                        <i class='bi bi-trash'></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            ";
+                        }
+                    ?>
                 </tbody>
             </table>
         </div>
