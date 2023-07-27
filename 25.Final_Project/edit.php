@@ -12,7 +12,7 @@ $conn = database("localhost","to_do_list","root","");
 
 <?php 
     // old data
-    $sql = "SELECT * FROM to_do_list WHERE id = :id";
+    $sql = "SELECT * FROM tasks WHERE id = :id";
     $stmt = $conn->prepare($sql);
     $stmt->execute([
         ":id" => $_GET['id']
@@ -37,7 +37,7 @@ $conn = database("localhost","to_do_list","root","");
         }
 
         if($status){
-            $sql = "UPDATE to_do_list SET title = :title, deadline = :deadline WHERE id = :id";
+            $sql = "UPDATE tasks SET title = :title, deadline = :deadline WHERE id = :id";
             $stmt = $conn->prepare($sql);
             $stmt->execute([
                 ":title" => $_POST['title'],

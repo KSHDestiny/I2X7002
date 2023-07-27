@@ -26,7 +26,7 @@ $conn = database("localhost","to_do_list","root","");
         if($status){
             $userId = userId();
 
-            $sql = "INSERT INTO to_do_list (user_id,title,deadline) VALUES (:userId,:title,:deadline)";
+            $sql = "INSERT INTO tasks (user_id,title,deadline) VALUES (:userId,:title,:deadline)";
             $stmt = $conn->prepare($sql);
             $stmt->execute([
                 ":userId" => $userId,
@@ -34,9 +34,11 @@ $conn = database("localhost","to_do_list","root","");
                 ":deadline" => $_POST['deadline']
             ]);
 
+            setcookie("oldCreateTitle","");
             setcookie("success","You have successfully created a list!");
             header("Location: ./dashboard.php");
         }else{
+            setcookie("oldCreateTitle",$_POST['title']);
             header("Location: ./create.php");
         }
     }
@@ -75,7 +77,7 @@ $conn = database("localhost","to_do_list","root","");
                     <form action="./create.php" method="POST">
                         <div class="form-group">
                             <label for="title" class="form-label">Title</label>
-                            <input type="text" name="title" class="form-control" id="title" placeholder="Enter your list...">
+                            <input type="text" name="title" class="form-control" id="title" placeholder="Enter your list..." value="<?php oldData('oldCreateTitle') ?>">
                             <p class="text-danger">
                                 <?php flash("emptyTitle") ?>
                             </p>

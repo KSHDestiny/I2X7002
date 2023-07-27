@@ -10,7 +10,7 @@ notLogin();
     $conn = database("localhost","to_do_list","root","");
     $userId = userId();
 
-    $sql = "SELECT * FROM to_do_list WHERE user_id = :userId";
+    $sql = "SELECT * FROM tasks WHERE user_id = :userId";
     $stmt = $conn->prepare($sql);
     $stmt->execute([
         ":userId" => $userId
@@ -62,33 +62,43 @@ notLogin();
                 <tbody id="tbody">
                     <?php
                         foreach($rows as $row){
+                            if($row['done'] == 1){
+                                $lineThrough = "text-decoration-line-through";
+                                $checked = "checked";
+                            }else{
+                                $lineThrough = "";
+                                $checked = "";
+                            }
+
                             $deadline = date("M-d-o",strtotime($row['deadline']));
                             echo "
-                            <tr class='row'>
+                            <tr class='row $lineThrough'>
                                 <td class='text-secondary col-4'>{$row['title']}</td>
                                 <td class='text-secondary col-4'>$deadline</td>
                                 <td class='ps-4 col-2'>
-                                    <form action=''>
-                                        <input type='checkbox' name='' class='form-check'>
-                                    </form>
+                                    <input type='checkbox' name='' class='form-check' id='{$row['id']}' $checked>
                                 </td>
                                 <td class='text-secondary col-2 d-flex'>
                                     <a href='edit.php?id={$row['id']}'>
-                                        <i class='bi bi-pencil-square me-3'></i>
+                                        <i class='bi bi-pencil-square me-3 text-secondary'></i>
                                     </a>
-                                    <a href='delete.php?id={$row['id']}'>
-                                        <i class='bi bi-trash'></i>
-                                    </a>
+                                    <i class='bi bi-trash'></i>
+                                    <form action='delete.php' method='POST'>
+                                        <input type='hidden' name='id' value='{$row['id']}'>
+                                    </form>
                                 </td>
                             </tr>
                             ";
                         }
                     ?>
+
                 </tbody>
             </table>
         </div>
     </section>
 
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>;
+    <script src="./assets/js/app.js"></script>
 <?php
     require_once "./template/footer.php"
 ?>

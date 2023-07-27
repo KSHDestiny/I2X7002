@@ -9,10 +9,10 @@ $conn = database("localhost","to_do_list","root","");
 
 <?php 
     // old data
-    $sql = "SELECT * FROM to_do_list WHERE id = :id";
+    $sql = "SELECT * FROM tasks WHERE id = :id";
     $stmt = $conn->prepare($sql);
     $stmt->execute([
-        ":id" => $_GET['id']
+        ":id" => $_POST['id']
     ]);
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -21,10 +21,10 @@ $conn = database("localhost","to_do_list","root","");
     if($row['user_id'] != $currentUserId){
         block($row['user_id'],$currentUserId);
     }else{
-        $sql = "DELETE FROM to_do_list WHERE id = :id";
+        $sql = "DELETE FROM tasks WHERE id = :id";
         $stmt = $conn->prepare($sql);
         $stmt->execute([
-            ':id' => $_GET['id']
+            ':id' => $_POST['id']
         ]);
     
         setcookie('success',"You have deleted a list.");
