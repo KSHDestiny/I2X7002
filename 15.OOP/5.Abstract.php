@@ -4,6 +4,8 @@
     // ! The child class method must be defined with the same or a less restricted access modifier.     // (can't use abstract private method)
     // ! The number of required arguments must be the same. However, the child class may have optional arguments in addition.
 
+    // ? Abstract class can't be used directly (only be used in child class)
+
     // abstract class AbstractClass{
         // properties
 
@@ -20,9 +22,14 @@
         public $name;
         public $age;
 
+
         public function __construct($name, $age){
             $this->name = $name;
             $this->age = $age;
+        }
+
+        public function sayGreeting(){
+            echo "Hello Mello";
         }
 
         abstract protected function mySelf($job);
@@ -58,4 +65,20 @@
     echo "<hr>";
 
     echo $hlahla->mySelf("developer");
+
+    // parent abstract class
+    $parent = new Human("human",18); // Fetal error (Cannot instantiate abstract class)
+
+    class Child extends Human{
+        public function mySelf($job, $salary = 400000){
+            return "My name is $this->name. I am $this->age years old. I am a $job. I have got $salary";
+        }
+
+        public function greeting(){
+            return "Hello Hla Hla";
+        }
+    }
+
+    $child = new Child("child",16);
+    $child->sayGreeting();
 ?>
