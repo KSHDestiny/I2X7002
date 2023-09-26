@@ -153,4 +153,24 @@
         inside();
     }
     outside();
+    echo "<hr>";
+
+    // * recursion
+
+    $loopNum = 0;
+    for($i=0; $i<9; $i++){
+        $loopNum++;
+        echo $loopNum;
+    }
+
+    echo "<br>";
+
+    function countDown($oldNum){
+        $newNum = $oldNum + 1;
+        echo $newNum;
+        if($newNum < 9){
+            countDown($newNum);
+        }
+    }
+    countDown(0);
 ?>
